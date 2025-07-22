@@ -1,0 +1,47 @@
+{
+  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
+  extends: [
+    'config:recommended',
+    ':dependencyDashboard',
+  ],
+  baseBranches: [
+    'main',
+  ],
+  prConcurrentLimit: 0,
+  branchPrefix: 'feature/renovate-',
+  prHourlyLimit: 0,
+  branchConcurrentLimit: 0,
+  mode: 'full',
+  commitMessageLowerCase: 'auto',
+  semanticCommits: 'enabled',
+  semanticCommitType: 'feat',
+  customManagers: [
+    {
+      customType: "regex",
+      managerFilePatterns: [
+        '/^Makefile$/',
+      ],
+      matchStrings: [
+        'GO_VERSION\\s*[:=?]+\\s*\"?(?<currentValue>[^\"\\r\\n]+)\"?'
+      ],
+      depNameTemplate: "go",
+      packageNameTemplate: "golang/go",
+      datasourceTemplate: "github-tags",
+      extractVersionTemplate: "go{{currentValue}}",
+      versioningTemplate: "semver"
+    },
+    {
+      customType: 'regex',
+      managerFilePatterns: [
+        '/^Makefile$/',
+      ],
+      matchStrings: [
+        '(?<depName>[A-Z0-9_]+)_VERSION\\s*[:=?]+\\s*"?(?<currentValue>[^"\\r\\n]+)"?[\\s\\S]*?(?<depName2>[A-Z0-9_]+)_LOOKUP\\s*[:=?]+\\s*"?(?<lookupValue>[^"\\r\\n]+)"?(?:[\\s\\S]*?(?<depName3>[A-Z0-9_]+)_SOURCE\\s*[:=?]+\\s*"?(?<sourceValue>[^"\\r\\n]+)"?)?',
+      ],
+      depNameTemplate: "{{depName}}",
+      packageNameTemplate: '{{lookupValue}}',
+      datasourceTemplate: "github-releases",
+      versioningTemplate: 'semver',
+    },
+  ],
+}
