@@ -88,7 +88,7 @@ ejson:
 
 
 OPENTOFU          := $(LOCALBIN)/opentofu
-OPENTOFU_VERSION  := v1.10.3
+OPENTOFU_VERSION  := v1.10.6
 OPENTOFU_LOOKUP   := opentofu/opentofu
 OPENTOFU_STRIPPED  := $(subst v,,$(OPENTOFU_VERSION))
 tofu:
