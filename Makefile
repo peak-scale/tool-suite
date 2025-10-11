@@ -43,7 +43,7 @@ k9s:
 	@rm -rf $(TMP_DIR)
 
 TRIVY           := $(LOCALBIN)/trivy
-TRIVY_VERSION   := v0.64.1
+TRIVY_VERSION   := v0.67.2
 TRIVY_STRIPPED  := $(subst v,,$(TRIVY_VERSION))
 TRIVY_LOOKUP    := aquasecurity/trivy
 trivy:
