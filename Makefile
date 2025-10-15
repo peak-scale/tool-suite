@@ -126,7 +126,7 @@ kubectl:
 	@chmod +x $(KUBECTL)
 
 TALOS         := $(LOCALBIN)/talosctl
-TALOS_VERSION  := v1.10.5
+TALOS_VERSION  := v1.11.3
 TALOS_LOOKUP  := siderolabs/talos
 talosctl:
 	@curl -s -L https://github.com/siderolabs/talos/releases/download/$(TALOS_VERSION)/talosctl-$(GO_OS_LOW)-$(GO_ARCH) -o $(TALOS)
