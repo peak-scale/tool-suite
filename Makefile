@@ -53,7 +53,7 @@ trivy:
 	@rm -rf $(TMP_DIR)
 
 TALHELPER          := $(LOCALBIN)/talhelper
-TALHELPER_VERSION  := v3.0.31
+TALHELPER_VERSION  := v3.0.38
 TALHELPER_LOOKUP   := budimanjojo/talhelper
 talhelper:
 	@mkdir -p $(TMP_DIR)
