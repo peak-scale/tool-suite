@@ -34,7 +34,7 @@ crane:
 	@rm -rf $(TMP_DIR)
 
 K9S         := $(LOCALBIN)/k9s
-K9S_VERSION := v0.50.9
+K9S_VERSION := v0.50.16
 K9S_LOOKUP  := derailed/k9s
 k9s:
 	@mkdir -p $(TMP_DIR)
