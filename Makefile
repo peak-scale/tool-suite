@@ -3,6 +3,8 @@ GO_BIN    ?= $(LOCALBIN)/go/bin/go
 GO_OS     := Linux
 GO_OS_LOW := $(shell echo $(GO_OS) | tr A-Z a-z)
 
+SHELL	  := bash
+
 GO_ARCH   := amd64
 TMP_DIR   := $(shell pwd)/.tmp
 
@@ -33,8 +35,18 @@ crane:
 	@cd $(TMP_DIR) && tar xf crane.tar.gz && mv crane $(CRANE)
 	@rm -rf $(TMP_DIR)
 
+
+KYVERNO         := $(LOCALBIN)/kyverno
+KYVERNO_VERSION := v1.15.2
+KYVERNO_LOOKUP  := kyverno/kyverno
+kyverno:
+	@mkdir -p $(TMP_DIR)
+	@curl -sL "https://github.com/kyverno/kyverno/releases/download/$(KYVERNO_VERSION)/kyverno-cli_$(KYVERNO_VERSION)_$(GO_OS_LOW)_x86_64.tar.gz" -o $(TMP_DIR)/kyverno.tar.gz
+	@cd $(TMP_DIR) && tar xf kyverno.tar.gz && mv kyverno $(KYVERNO)
+	@rm -rf $(TMP_DIR)
+
 K9S         := $(LOCALBIN)/k9s
-K9S_VERSION := v0.50.9
+K9S_VERSION := v0.50.16
 K9S_LOOKUP  := derailed/k9s
 k9s:
 	@mkdir -p $(TMP_DIR)
@@ -43,7 +55,7 @@ k9s:
 	@rm -rf $(TMP_DIR)
 
 TRIVY           := $(LOCALBIN)/trivy
-TRIVY_VERSION   := v0.64.1
+TRIVY_VERSION   := v0.67.2
 TRIVY_STRIPPED  := $(subst v,,$(TRIVY_VERSION))
 TRIVY_LOOKUP    := aquasecurity/trivy
 trivy:
@@ -53,7 +65,7 @@ trivy:
 	@rm -rf $(TMP_DIR)
 
 TALHELPER          := $(LOCALBIN)/talhelper
-TALHELPER_VERSION  := v3.0.31
+TALHELPER_VERSION  := v3.0.38
 TALHELPER_LOOKUP   := budimanjojo/talhelper
 talhelper:
 	@mkdir -p $(TMP_DIR)
@@ -70,7 +82,7 @@ age:
 	@$(call go-install-tool,$(AGE),filippo.io/age/cmd/age@$(AGE_VERSION))
 
 SOPS          := $(LOCALBIN)/sops
-SOPS_VERSION  := v3.10.2
+SOPS_VERSION  := v3.11.0
 SOPS_LOOKUP   := getsops/sops
 sops:
 	@$(call go-install-tool,$(SOPS),github.com/$(SOPS_LOOKUP)/v3/cmd/sops@$(SOPS_VERSION))
@@ -88,7 +100,7 @@ ejson:
 
 
 OPENTOFU          := $(LOCALBIN)/opentofu
-OPENTOFU_VERSION  := v1.10.3
+OPENTOFU_VERSION  := v1.10.6
 OPENTOFU_LOOKUP   := opentofu/opentofu
 OPENTOFU_STRIPPED  := $(subst v,,$(OPENTOFU_VERSION))
 tofu:
@@ -110,7 +122,7 @@ go:
 	@rm -rf $(TMP_DIR)
 
 HELM         ?= $(LOCALBIN)/helm
-HELM_VERSION := v3.18.4
+HELM_VERSION := v3.19.0
 HELM_LOOKUP  := helm/helm
 helm:
 	@mkdir -p $(TMP_DIR)
@@ -119,27 +131,27 @@ helm:
 	@rm -rf $(TMP_DIR)
 
 KUBECTL         ?= $(LOCALBIN)/kubectl
-KUBECTL_VERSION := v1.33.2
+KUBECTL_VERSION := v1.34.1
 KUBECTL_LOOKUP  := kubernetes/kubernetes
 kubectl:
 	@curl -s -L https://dl.k8s.io/release/$(KUBECTL_VERSION)/bin/$(GO_OS_LOW)/$(GO_ARCH)/kubectl -o $(KUBECTL)
 	@chmod +x $(KUBECTL)
 
 TALOS         := $(LOCALBIN)/talosctl
-TALOS_VERSION  := v1.10.5
+TALOS_VERSION  := v1.11.3
 TALOS_LOOKUP  := siderolabs/talos
 talosctl:
 	@curl -s -L https://github.com/siderolabs/talos/releases/download/$(TALOS_VERSION)/talosctl-$(GO_OS_LOW)-$(GO_ARCH) -o $(TALOS)
 	@chmod +x $(TALOS)
 
 CILIUM         ?= $(LOCALBIN)/cilium
-CILIUM_VERSION := v0.18.5
+CILIUM_VERSION := v0.18.7
 CILIUM_LOOKUP  := cilium/cilium-cli
 cilium:
-	curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_VERSION}/cilium-$(GO_OS)-$(GO_ARCH).tar.gz{,.sha256sum}
-	sha256sum --check cilium-linux-${CLI_ARCH}.tar.gz.sha256sum
-	tar xzvfC cilium-linux-${CLI_ARCH}.tar.gz $(LOCALBIN)
-	rm cilium-linux-${CLI_ARCH}.tar.gz{,.sha256sum}
+	curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_VERSION}/cilium-$(GO_OS_LOW)-$(GO_ARCH).tar.gz{,.sha256sum}
+	sha256sum --check cilium-$(GO_OS_LOW)-$(GO_ARCH).tar.gz.sha256sum
+	tar xzvfC cilium-$(GO_OS_LOW)-$(GO_ARCH).tar.gz $(LOCALBIN)
+	rm cilium-$(GO_OS_LOW)-$(GO_ARCH).tar.gz{,.sha256sum}
 
 GOMPLATE  := $(LOCALBIN)/gomplate
 GOMPLATE_VERSION  := v4.3.3
@@ -147,6 +159,21 @@ GOMPLATE_LOOKUP  := hairyhenderson/gomplate
 gomplate:
 	@curl -s -L https://github.com/hairyhenderson/gomplate/releases/download/$(GOMPLATE_VERSION)/gomplate_$(GO_OS_LOW)-$(GO_ARCH) -o $(GOMPLATE)
 	@chmod +x $(GOMPLATE)
+
+
+JQ          := $(LOCALBIN)/jq
+JQ_VERSION  := 1.8.1
+JQ_LOOKUP   := jqlang/jq
+jq:
+	@curl -s -L  https://github.com/jqlang/jq/releases/download/jq-$(JQ_VERSION)/jq-$(GO_OS_LOW)-$(GO_ARCH) -o $(JQ)
+	@chmod +x $(JQ)
+
+
+MC          := $(LOCALBIN)/mc
+MC_VERSION  := RELEASE.2025-07-21T05-28-08Z
+MC_LOOKUP   := minio/mc
+mc:
+	@$(call go-install-tool,$(MC),github.com/$(MC_LOOKUP)@$(MC_VERSION))
 
 # go-install-tool will 'go install' any package $2 and install it to $1.
 PROJECT_DIR := $(shell dirname $(abspath $(lastword $(MAKEFILE_LIST))))
