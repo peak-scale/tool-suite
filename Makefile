@@ -145,7 +145,7 @@ talosctl:
 	@chmod +x $(TALOS)
 
 CILIUM         ?= $(LOCALBIN)/cilium
-CILIUM_VERSION := v0.18.7
+CILIUM_VERSION := v0.18.8
 CILIUM_LOOKUP  := cilium/cilium-cli
 cilium:
 	curl -L --fail --remote-name-all https://github.com/cilium/cilium-cli/releases/download/${CILIUM_VERSION}/cilium-$(GO_OS_LOW)-$(GO_ARCH).tar.gz{,.sha256sum}
