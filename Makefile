@@ -37,7 +37,7 @@ crane:
 
 
 KYVERNO         := $(LOCALBIN)/kyverno
-KYVERNO_VERSION := v1.15.2
+KYVERNO_VERSION := v1.16.0
 KYVERNO_LOOKUP  := kyverno/kyverno
 kyverno:
 	@mkdir -p $(TMP_DIR)
