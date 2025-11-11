@@ -122,7 +122,7 @@ go:
 	@rm -rf $(TMP_DIR)
 
 HELM         ?= $(LOCALBIN)/helm
-HELM_VERSION := v3.19.0
+HELM_VERSION := v3.19.1
 HELM_LOOKUP  := helm/helm
 helm:
 	@mkdir -p $(TMP_DIR)
