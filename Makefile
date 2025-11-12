@@ -131,7 +131,7 @@ helm:
 	@rm -rf $(TMP_DIR)
 
 KUBECTL         ?= $(LOCALBIN)/kubectl
-KUBECTL_VERSION := v1.34.1
+KUBECTL_VERSION := v1.34.2
 KUBECTL_LOOKUP  := kubernetes/kubernetes
 kubectl:
 	@curl -s -L https://dl.k8s.io/release/$(KUBECTL_VERSION)/bin/$(GO_OS_LOW)/$(GO_ARCH)/kubectl -o $(KUBECTL)
