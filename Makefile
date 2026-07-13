@@ -154,7 +154,7 @@ cilium:
 	rm cilium-$(GO_OS_LOW)-$(GO_ARCH).tar.gz{,.sha256sum}
 
 GOMPLATE  := $(LOCALBIN)/gomplate
-GOMPLATE_VERSION  := v4.3.3
+GOMPLATE_VERSION  := v5.2.0
 GOMPLATE_LOOKUP  := hairyhenderson/gomplate
 gomplate:
 	@curl -s -L https://github.com/hairyhenderson/gomplate/releases/download/$(GOMPLATE_VERSION)/gomplate_$(GO_OS_LOW)-$(GO_ARCH) -o $(GOMPLATE)
