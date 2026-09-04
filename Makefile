@@ -27,7 +27,7 @@ update-loop: $(LOCALBIN)/*
  	; done
 
 CRANE         := $(LOCALBIN)/crane
-CRANE_VERSION := v0.20.6
+CRANE_VERSION := v0.22.1
 CRANE_LOOKUP  := google/go-containerregistry
 crane:
 	@mkdir -p $(TMP_DIR)
