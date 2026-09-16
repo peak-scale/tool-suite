@@ -89,7 +89,7 @@ sops:
 
 
 EJSON         := $(LOCALBIN)/ejson
-EJSON_VERSION := v1.5.4
+EJSON_VERSION := v1.5.5
 EJSON_LOOKUP  := Shopify/ejson
 EJSON_STRIPPED  := $(subst v,,$(EJSON_VERSION))
 ejson:
